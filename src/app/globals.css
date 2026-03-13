@@ -1,26 +1,235 @@
 @import "tailwindcss";
 
+/* ─── Sacred Clarity Design Tokens ─────────────────────── */
+
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Parchment / warm backgrounds */
+  --parchment-50:  #fdfaf5;
+  --parchment-100: #f8f0e3;
+  --parchment-200: #f0e0c6;
+  --parchment-300: #e4ccaa;
+
+  /* Deep ink colors */
+  --ink-900: #1a1612;
+  --ink-800: #2a2520;
+  --ink-700: #3d3730;
+  --ink-600: #544d44;
+
+  /* Sacred gold accent */
+  --gold-500: #b8860b;
+  --gold-400: #d4a229;
+  --gold-300: #e8c25c;
+  --gold-200: #f3db8e;
+
+  /* Emerald accent (Islamic green) */
+  --emerald-700: #0d7e52;
+  --emerald-600: #15915f;
+  --emerald-500: #1da36d;
+  --emerald-400: #3dbd88;
+  --emerald-100: #d1f5e4;
+
+  /* Semantic tokens */
+  --background: var(--parchment-50);
+  --foreground: var(--ink-900);
+  --card-bg: #ffffff;
+  --card-border: var(--parchment-200);
+  --muted: var(--ink-600);
+  --accent: var(--emerald-600);
+  --accent-light: var(--emerald-100);
+  --gold: var(--gold-500);
+  --gold-light: var(--gold-200);
+
+  /* Arabic verse specific */
+  --verse-bg: var(--parchment-100);
+  --verse-border: var(--gold-300);
+
+  /* Borders and shadows */
+  --border-radius: 12px;
+  --shadow-sm: 0 1px 2px rgba(26, 22, 18, 0.06);
+  --shadow-md: 0 4px 12px rgba(26, 22, 18, 0.08);
+  --shadow-lg: 0 8px 24px rgba(26, 22, 18, 0.1);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-card-bg: var(--card-bg);
+  --color-card-border: var(--card-border);
+  --color-muted: var(--muted);
+  --color-accent: var(--accent);
+  --color-accent-light: var(--accent-light);
+  --color-gold: var(--gold);
+  --color-gold-light: var(--gold-light);
+  --color-verse-bg: var(--verse-bg);
+  --color-verse-border: var(--verse-border);
+  --color-parchment-50: var(--parchment-50);
+  --color-parchment-100: var(--parchment-100);
+  --color-parchment-200: var(--parchment-200);
+  --color-parchment-300: var(--parchment-300);
+  --color-ink-900: var(--ink-900);
+  --color-ink-800: var(--ink-800);
+  --color-ink-700: var(--ink-700);
+  --color-ink-600: var(--ink-600);
+  --color-emerald-700: var(--emerald-700);
+  --color-emerald-400: var(--emerald-400);
+  --color-gold-500: var(--gold-500);
+  --color-gold-300: var(--gold-300);
+  --color-gold-200: var(--gold-200);
+  --font-sans: var(--font-inter);
+  --font-arabic: var(--font-amiri);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+/* ─── Base Styles ──────────────────────────────────────── */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
 }
 
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-inter), system-ui, sans-serif;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+/* ─── Arabic Typography ────────────────────────────────── */
+
+.arabic-text {
+  font-family: var(--font-amiri), "Traditional Arabic", serif;
+  direction: rtl;
+  text-align: right;
+  line-height: 2.4;
+  font-size: 1.75rem;
+  color: var(--ink-800);
+}
+
+.arabic-text-lg {
+  font-size: 2.25rem;
+  line-height: 2.6;
+}
+
+.arabic-text-xl {
+  font-size: 3rem;
+  line-height: 2.2;
+}
+
+/* ─── Verse Card ───────────────────────────────────────── */
+
+.verse-card {
+  background: var(--verse-bg);
+  border: 1px solid var(--verse-border);
+  border-radius: var(--border-radius);
+  padding: 1.5rem 2rem;
+  margin-bottom: 1rem;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+}
+
+.verse-card:hover {
+  box-shadow: var(--shadow-md);
+  transform: translateY(-1px);
+}
+
+/* ─── Decorative Elements ──────────────────────────────── */
+
+.ornament {
+  display: inline-block;
+  color: var(--gold);
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.divider-ornament {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  color: var(--gold-300);
+  margin: 2rem 0;
+}
+
+.divider-ornament::before,
+.divider-ornament::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold-300), transparent);
+}
+
+/* ─── Badge ────────────────────────────────────────────── */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.2rem 0.6rem;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+
+.badge-meccan {
+  background: var(--gold-light);
+  color: var(--gold);
+}
+
+.badge-medinan {
+  background: var(--accent-light);
+  color: var(--emerald-700);
+}
+
+/* ─── Smooth Scrolling ─────────────────────────────────── */
+
+html {
+  scroll-behavior: smooth;
+}
+
+/* ─── Tiny Scrollbar ───────────────────────────────────── */
+
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--parchment-100);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--parchment-300);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--gold-300);
+}
+
+/* ─── Focus Ring Styles ────────────────────────────────── */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ─── Animations ───────────────────────────────────────── */
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideUp {
+  from { opacity: 0; transform: translateY(20px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.4s ease-out forwards;
+}
+
+.animate-slide-up {
+  animation: slideUp 0.5s ease-out forwards;
 }
